@@ -60,9 +60,8 @@ def automatic(info):
     safehumidlow = set_humid - 2.0
     humidDiff = info["humidity"]["outside"] - info["humidity"]["inside"]
 
-
     if percipitation == False: #if rain or not
-        closeWindow()
+        info["WindowState"] = closeWindow(info["WindowState"])
     elif tempin >= safetemplow and tempin <= safetemphigh: # safe range of the set temp
         pass
     elif tempin < set_temp: # compare the temp to know if open or not
@@ -99,7 +98,6 @@ def automatic(info):
                 info["WindowState"] = openWindow(info["WindowState"])
             else:
                 info["WindowState"] = closeWindow(info["WindowState"])
-
     return info
 
 def manual(mode,info):
