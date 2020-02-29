@@ -746,11 +746,11 @@ class CellularIoTApp(CellularIoT):
 		hdc1000.setHumidityResolution(HDC1000_CONFIG_HUMIDITY_RESOLUTION_14BIT)
 		return hdc1000.readHumidity()
 
-	# Function for reading precipitation
+	# Function for reading OPTO1 input
 	def readOPTO1(self):
 		return GPIO.input(self.OPTO1)
 
-	# Function for reading precipitations
+	# Function for reading OPTO2 input
 	def readOPTO2(self):
 		return GPIO.input(self.OPTO2)
 

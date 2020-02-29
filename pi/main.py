@@ -9,13 +9,13 @@ import check_sensors as sense
 
 #updates the current data from the r-pi
 def updateData(node):
-    return {"temp" : sense.getTemp(node), "humidity" : sense.getHum(node), "precip" : sense.getPrec(node), "window" : window_state}
+    return {"temp" : sense.getTemp(node), "humidity" : sense.getHum(node), "precip" : sense.getPrec(node), "windowState" : window_state}
 
 #define the end URL and setup the node
 URL = "http://10.10.10.160/data/"
-cmd_location = "commands"
+cmd_location = "command"
 node = sense.setupNode()
-window_state = True
+window_state = "open"
 
 #main loop
 while(True):
@@ -25,6 +25,10 @@ while(True):
         print(server.post_request(URL+key, {"data" : dat}))
     
     #retrieve instructions from the server
-    print(server.get_request(URL+cmd_location))
+    cmd = server.get_request(URL+cmd_location)
+    print(cmd)
+
+    if (cmd == "open" or cmd == "close"):
+        window_state = cmd
 
     time.sleep(10)
