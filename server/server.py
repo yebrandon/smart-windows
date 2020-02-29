@@ -57,4 +57,4 @@ def sendSettings():
         return jsonify(error=False, msg="Success", code=200, data=settings)
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    app.run(debug=True, host='0.0.0.0')
