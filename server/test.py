@@ -22,7 +22,7 @@ test_data = {
 }
 
 # This should return a dict with a key "data" that has a string value with the contents of the temp file
-print(get_request("http://127.0.0.1:5000/data/temp"))
+print(get_request("http://127.0.0.1/data/temp"))
 
 # This should write "12" to the temp file
-print(post_request("http://127.0.0.1:5000/data/temp", test_data))
+print(post_request("http://127.0.0.1/data/temp", test_data))
