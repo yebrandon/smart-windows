@@ -29,12 +29,12 @@ def getHum(node):
     return node.readHum()
 
 #returns the if the precipitation reading from the r-pi is positive and flashes the LED
-#Note: Assuming the sensor is on ADC3
+#Note: Assuming the sensor is on ADC3 (ADC counter starts at 0)
 def getPrec(node):
     node.turnOnUserLED()
     time.sleep(0.2)
     node.turnOffUserLED()
-    prec = node.getPrec()
+    prec = node.node.readAdc(2)
     if (prec < 1000):
         return True
     return False
