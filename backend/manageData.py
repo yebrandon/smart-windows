@@ -2,15 +2,27 @@ import getData
 import datetime
 import time
 
+windowStats = 0
+
 def openWindow():
-    print("Opening Window")
     time.sleep(10)
-    print("Window State: Open")
+    global windowStats
+    if windowStats == 0:
+        print("Opening Window")
+        print("Window State: Open")
+        windowStats += 1
+    else:
+        print("Window State: Open")
 
 def closeWindow():
-    print("Closing Window")
     time.sleep(10)
-    print("Window State: Closed")
+    global windowStats
+    if windowStats == 1:
+        print("Closing Window")
+        print("Window State: Closed")
+        windowStats -= 1
+    else:
+        print("Window State: Closed")
     
 def automatic(info):
     now = datetime.datetime.now()
@@ -24,14 +36,14 @@ def automatic(info):
     tempDiff = info["temp"]["outside"] - info["temp"]["inside"]
     tempin = info["temp"]["inside"]
     tempout = info["temp"]["outside"]
-    safetemphigh = set_temp + 2
-    safetemplow = set_temp - 2
+    safetemphigh = set_temp + 2.0
+    safetemplow = set_temp - 2.0
 
     humidin = info["humidity"]["inside"]
     humidout = info["humidity"]["outside"]
-    safehumidhigh = set_humid + 2
-    safehumidlow = set_humid - 2
-    humidDiff = humidity["data"]["outside"] - humidity["data"]["inside"]
+    safehumidhigh = set_humid + 2.0
+    safehumidlow = set_humid - 2.0
+    humidDiff = info["humidity"]["outside"] - info["humidity"]["inside"]
 
 
     if percipitation > 0:
@@ -61,16 +73,16 @@ def automatic(info):
         elif humidDiff < 0:
             openWindow()
 
-def manual():
+#def manual():
+
     
 
 
-while True:
+def main():
+
     time.sleep(30)
-    temp = getData.getTemp()
-    humidity = getData.getHumidity()
-    smoke = getData.getSmoke()
-    percipitation = getData.getPercipitation()
-    settings = getData.getSettings()
-    
+    info = getData.getInfo()
+    automatic(info)
+
+main()
 
