@@ -1,7 +1,8 @@
 import urllib.request
 import json
 
-URL = "https://yebrandon.github.io/smart-windows/data/"
+#URL = "https://yebrandon.github.io/smart-windows/data/"
+URL = "10.10.10.160/data/temp"
 
 def get_request(url):#getting data
     request = urllib.request.Request(url, method="GET")
@@ -16,7 +17,7 @@ def post_request(url, b):#sending data
         data = json.loads(response.read().decode('ascii'))
     return data
 
-"""def getTemp():
+def getTemp():
     #temp["houseTemp"] is house temp, temp["outsideTemp"], temp["set"]
     tempURL = URL+"temp"
     temp = get_request(tempURL);
@@ -33,16 +34,22 @@ def getPercipitation():
     return percipitation
 
 def getWindowState():
-    windowURL = URL+"windowState"
+    windowURL = URL+"WindowState"
     window = get_request(windowURL)
     return window
 
 def getSettings():
     settingsURL = URL+"settings"
     settings = get_request(settingsURL)
-    return settings"""
+    return settings
 
 def getInfo():
-    infoURL = URL+"info"
-    info = get_request(infoURL)
+    info = {}
+    info['temp'] = getTemp()
+    info["humidity"] = getHumidity()
+    info["percipitation"]= getPercipitation()
+    info["WindowState"] = getWindowState()
+    info["setting"] = getSettings()
     return info
+
+
