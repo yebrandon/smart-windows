@@ -3,7 +3,7 @@ Sends all the sensor readings from the Raspberry PI to the server.
 """
 
 #import the requests library
-import urllib
+import urllib.request
 import json
 import time
 import checkSensors as sense
