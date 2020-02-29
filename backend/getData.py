@@ -43,6 +43,11 @@ def getSettings():
     settings = get_request(settingsURL)
     return settings
 
+def getCommand():
+    commandURL = URL + "command"
+    command = get_request(commandURL)
+    return command
+
 def getInfo():
     info = {}
     info['temp'] = getTemp()
@@ -50,6 +55,7 @@ def getInfo():
     info["percipitation"]= getPercipitation()
     info["WindowState"] = getWindowState()
     info["setting"] = getSettings()
+    info["command"] = getCommand()
     return info
 
 
