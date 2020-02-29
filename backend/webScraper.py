@@ -1,3 +1,7 @@
+"""
+Author: Evan kilburn
+Description: Takes the country and city as apramaters in the main function and returns the temp and humidity in a list
+"""
 import json
 import urllib.request
 
@@ -24,7 +28,7 @@ def main(city, country):
     allData = (get_request("http://api.openweathermap.org/data/2.5/weather?id="+str(cityID)+"&APIKEY="+str(APIKEY)))
     temp = allData["main"]["feels_like"] - 273.15
     humidity = allData["main"]["humidity"]
-    return(temp, humidity)
+    return([temp, humidity])
     
 if __name__ == "__main__":
     print(main("NEWMARKET", "CA"))
