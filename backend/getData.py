@@ -1,8 +1,12 @@
+"""
+front end type stuff
+"""
 import urllib.request
+from multiprocessing import Process, Queue, Pipe
 import json
 
 #URL = "https://yebrandon.github.io/smart-windows/data/"
-URL = "10.10.10.160/data/temp"
+URL = "http://10.10.10.160/data/"
 
 def get_request(url):#getting data
     request = urllib.request.Request(url, method="GET")
@@ -29,12 +33,12 @@ def getHumidity():
     return humidity
 
 def getPercipitation():
-    percipitationURL = URL+"percipitation"
+    percipitationURL = URL+"precip"
     percipitation = get_request(percipitationURL)
     return percipitation
 
 def getWindowState():
-    windowURL = URL+"WindowState"
+    windowURL = URL+"windowState"
     window = get_request(windowURL)
     return window
 
@@ -42,14 +46,7 @@ def getSettings():
     settingsURL = URL+"settings"
     settings = get_request(settingsURL)
     return settings
-
-def getInfo():
-    info = {}
-    info['temp'] = getTemp()
-    info["humidity"] = getHumidity()
-    info["percipitation"]= getPercipitation()
-    info["WindowState"] = getWindowState()
-    info["setting"] = getSettings()
-    return info
-
+    
+if __name__ == "__main__":
+    print(getTemp())
 
