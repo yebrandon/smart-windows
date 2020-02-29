@@ -16,7 +16,7 @@ def post_request(url, b):#sending data
         data = json.loads(response.read().decode('ascii'))
     return data
 
-def getTemp():
+"""def getTemp():
     #temp["houseTemp"] is house temp, temp["outsideTemp"], temp["set"]
     tempURL = URL+"temp"
     temp = get_request(tempURL);
@@ -40,4 +40,9 @@ def getWindowState():
 def getSettings():
     settingsURL = URL+"settings"
     settings = get_request(settingsURL)
-    return settings
+    return settings"""
+
+def getInfo():
+    infoURL = URL+"info"
+    info = get_request(infoURL)
+    return info
