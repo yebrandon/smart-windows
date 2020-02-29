@@ -16,6 +16,17 @@ node = sense.setupNode()
 def updateData(node):
     return {"temp" : sense.getTemp(node), "humidity" : sense.getHum(node), "precip" : sense.getPrec(node)}
 
+#sends the collected data
+def post_request(url, b):
+    body = urllib.parse.urlencode(b).encode('ascii')
+    request = urllib.request.Request(url, data=body, method="POST")
+    with urllib.request.urlopen(request) as response:
+        data = json.loads(response.read().decode('ascii'))
+    return data
+
+def get_URL():
+    return URL
+
 #main loop
 while(True):
     data = updateData(node)
@@ -27,14 +38,3 @@ while(True):
         print(post_request(URL+key, {key : dat})
     time.sleep(2)
     """
-
-#sends the collected data
-def post_request(url, b):
-    body = urllib.parse.urlencode(b).encode('ascii')
-    request = urllib.request.Request(url, data=body, method="POST")
-    with urllib.request.urlopen(request) as response:
-        data = json.loads(response.read().decode('ascii'))
-    return data
-
-def get_URL():
-    return URL
