@@ -19,7 +19,7 @@ def updateData(node):
 #main loop
 while(True):
     data = updateData(node)
-    for key, dat in data:
+    for key, dat in data.items():
         print(URL+key, {key : dat})
     time.sleep(2)
     """
