@@ -117,6 +117,9 @@ def main():
     else:
         allinfo = manual(mode["manual"],info)
 
+    state = allinfo["WindowState"]
+
+    return state
 
 
 main()
