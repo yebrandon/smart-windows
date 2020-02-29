@@ -34,7 +34,7 @@ def getPrec(node):
     node.turnOnUserLED()
     time.sleep(0.2)
     node.turnOffUserLED()
-    prec = node.node.readAdc(2)
+    prec = node.readAdc(2)
     if (prec < 1000):
         return True
     return False
