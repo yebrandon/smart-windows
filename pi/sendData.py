@@ -6,20 +6,26 @@ Sends all the sensor readings from the Raspberry PI to the server.
 import urllib
 import json
 import time
+import checkSensors as sense
 
-#define the end URL
+#define the end URL and setup the node
 URL = "http://TODO"
+node = sense.setupNode()
 
-#TODO, gather data
-data = {"Konami" : "UP UP DOWN DOWN LEFT RIGHT LEFT RIGHT B A START"}
+#updates the current data from the r-pi
+def updateData(node):
+    return {"temp" : sense.getTemp(node), "hum%" : sense.getHum(node), "prec" : sense.getPrec(node)}
 
 #main loop
 while(True):
+    data = updateData(node)
+    print(data)
+    time.sleep(2)
+    """
     text = post_request(URL, data)
     print(text)
     time.sleep(2)
-
-
+    """
 
 #sends the collected data
 def post_request(url, b):
