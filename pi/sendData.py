@@ -9,7 +9,7 @@ import time
 import checkSensors as sense
 
 #define the end URL and setup the node
-URL = "10.10.10.160/data/"
+URL = "http://10.10.10.160/data/"
 node = sense.setupNode()
 
 #updates the current data from the r-pi
