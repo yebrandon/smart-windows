@@ -27,11 +27,6 @@ def getHumidity():
     humidity = get_request(humidityURL)
     return humidity
 
-def getSmoke():
-    smokeURL = URL+"smoke"
-    smoke = get_request(smokeURL)
-    return smoke
-
 def getPercipitation():
     percipitationURL = URL+"percipitation"
     percipitation = get_request(percipitationURL)

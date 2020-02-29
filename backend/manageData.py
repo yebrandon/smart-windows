@@ -11,16 +11,17 @@ def closeWindow():
     sleep(10)
     print("Window State: Closed")
     
-def automatic(temp, humidity, smoke, percipitation):
+def automatic(temp, humidity, percipitation):
     now = datetime.datetime.now()
     currentTime = datetime.time(now.hour, now.minute)
-    smokeDif = smoke["data"]["inside"] - smoke["data"]["outside"]
     tempDiff = temp["data"]["inside"] - temp["data"]["outside"]
     humidDiff = humidity["data"]["inside"] - humidity["data"]["outside"]
-    smokeDiff = smoke["data"]["inside"] - smoke["data"]["outside"]
-    if smokeDif > 5:
-        openWindow()
-    elif 
+    percipDiff = percioitation["data"]["inside"] - percipitation["data"]["outside"]
+    if tempDiff > 4:
+        if humid > 5:
+            if
+            
+        
 
 def manual():
     
