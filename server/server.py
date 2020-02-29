@@ -3,7 +3,7 @@ from flask import Flask, request, jsonify
 app = Flask(__name__)
 
 def writeFile(file, data):
-    with open(file, "w") as f:
+    with open(file, "w+") as f:
         f.write(data)
 
 def readFile(file):
@@ -17,7 +17,10 @@ def sendTemp():
         writeFile("temp", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
-        temp = readFile("temp")
+        try:
+            temp = readFile("temp")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
         return jsonify(error=False, msg="Success", code=200, data=temp)
 
 @app.route('/data/humidity', methods=["GET", "POST"])
@@ -26,7 +29,10 @@ def sendHumidity():
         writeFile("humidity", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
-        humidity = readFile("humidity")
+        try:
+            humidity = readFile("humidity")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
         return jsonify(error=False, msg="Success", code=200, data=humidity)
 
 @app.route('/data/smoke', methods=["GET", "POST"])
@@ -35,7 +41,10 @@ def sendSmoke():
         writeFile("smoke", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
-        smoke = readFile("smoke")
+        try:
+            smoke = readFile("smoke")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
         return jsonify(error=False, msg="Success", code=200, data=smoke)
 
 @app.route('/data/precip', methods=["GET", "POST"])
@@ -44,7 +53,10 @@ def sendPrecip():
         writeFile("precip", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
-        precip = readFile("precip")
+        try:
+            precip = readFile("precip")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
         return jsonify(error=False, msg="Success", code=200, data=precip)
 
 @app.route('/data/settings', methods=["GET", "POST"])
@@ -53,8 +65,20 @@ def sendSettings():
         writeFile("settings", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
-        settings = readFile("settings")
+        try:
+            settings = readFile("settings")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
         return jsonify(error=False, msg="Success", code=200, data=settings)
+
+@app.route('/data/windowState', methods=["GET", "POST"])
+def sendWindowState():
+    if request.method == "POST":
+        writeFile("windowState", request.form['data'])
+        return jsonify(error=False, msg="Success", code=200, data='')
+    else:
+        windowState = readFile("windowState")
+        return jsonify(error=False, msg="Success", code=200, data=windowState)
 
 if __name__ == "__main__":
     app.run(debug=True, host='0.0.0.0')
