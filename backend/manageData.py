@@ -43,10 +43,7 @@ def automatic(info):
     :param info: the infomation contain the temp humid and other stuff
     :return:
     """
-    now = datetime.datetime.now()
-    currentTime = datetime.time(now.hour, now.minute)
-
-    set_temp = info["set"]["temp"]
+    set_temp = info["settings"]["pref_temp"]
     set_humid = 10
 
     percipitation = info["percipitation"]
@@ -63,7 +60,7 @@ def automatic(info):
     safehumidlow = set_humid - 2.0
     humidDiff = info["humidity"]["outside"] - info["humidity"]["inside"]
 
-    if percipitation == False: #if rain or not
+    if percipitation == True: #if rain or not
         info["WindowState"] = closeWindow(info["WindowState"])
     elif tempin >= safetemplow and tempin <= safetemphigh: # safe range of the set temp
         pass
@@ -103,10 +100,20 @@ def automatic(info):
                 info["WindowState"] = closeWindow(info["WindowState"])
     return info
 
-def manual(mode,info):
-    if mode == "on":
+def manual(info):
+    now = datetime.datetime.now()
+
+    if info["command"] == "on":
         info["WindowState"] = openWindow(info["WindowState"])
-    elif mode == "off":
+    elif info["command"] == "off":
+        info["WindowState"] = closeWindow(info["WindowState"])
+
+    opentime = info["setting"]["open_time"]
+    if now.hour == opentime[0] and now.minute == opentime[1]:
+        info["WindowState"] = openWindow(info["WindowState"])
+
+    closetime = info["srtting"]["close_time"]
+    if now.hour == closetime[0] and now.minute == closetime[1]:
         info["WindowState"] = closeWindow(info["WindowState"])
 
     return info
@@ -114,14 +121,50 @@ def manual(mode,info):
 def main():
     time.sleep(10)
     info = getData.getInfo()
-    mode = localData.getMode
-    if mode["mode"] == "auto":
+    mode = info["setting"]["mode"]
+    if mode == "auto":
         allinfo = automatic(info)
     else:
+<<<<<<< HEAD
         allinfo = manual(mode["manual"],info)
+=======
+        allinfo = manual(info)
+
+>>>>>>> 66c1f68b22ced387327953fb3efa95420959d480
     state = allinfo["WindowState"]
     return state
 
-
 main()
+
+if __name__ == '__main__':
+    test = {}
+    temp = {}
+    temp["inside"] = 20
+    temp["outside"] = 30
+    test["temp"] = temp
+    hum = {}
+    hum["inside"] = 10
+    hum["outside"] = 10
+    test["humidity"] = hum
+    test["percipitation"] = False
+    test["WindowState"] = "close"
+    settings={}
+    settings["mode"] = "auto"
+    o_time = [18,11]
+    c_time = [18,12]
+    settings["open_time"] = o_time
+    settings["close_time"] = c_time
+    settings["pref_temp"] = 30
+    test["settings"] = settings
+
+
+    if test["settings"]["mode"] == "auto":
+        allinfo = automatic(test)
+    else:
+        allinfo = manual(test)
+
+    state = allinfo["WindowState"]
+
+    print(state)
+
 
