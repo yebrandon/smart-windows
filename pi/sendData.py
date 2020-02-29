@@ -32,7 +32,7 @@ while(True):
     data = updateData(node)
     for key, dat in data.items():
         print(post_request(URL+key, {"data" : dat}))
-    time.sleep(2)
+    time.sleep(10)
     """
     for key, dat in data:
         print(post_request(URL+key, {key : dat})
