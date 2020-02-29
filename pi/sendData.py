@@ -9,21 +9,22 @@ import time
 import checkSensors as sense
 
 #define the end URL and setup the node
-URL = "http://TODO"
+URL = "http://TODO/data/"
 node = sense.setupNode()
 
 #updates the current data from the r-pi
 def updateData(node):
-    return {"temp" : sense.getTemp(node), "hum%" : sense.getHum(node), "prec" : sense.getPrec(node)}
+    return {"temp" : sense.getTemp(node), "humidity" : sense.getHum(node), "precip" : sense.getPrec(node)}
 
 #main loop
 while(True):
     data = updateData(node)
-    print(data)
+    for key, dat in data:
+        print(URL+key, {key : dat})
     time.sleep(2)
     """
-    text = post_request(URL, data)
-    print(text)
+    for key, dat in data:
+        print(post_request(URL+key, {key : dat})
     time.sleep(2)
     """
 
