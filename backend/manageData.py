@@ -22,7 +22,7 @@ def automatic(info):
 
     percipitation = info["precip"]
 
-    tempDiff = info["temp"]["outside"] - float(info["temp"]["inside"])
+    tempDiff = abs(info["temp"]["outside"] - float(info["temp"]["inside"]))
     tempin = float(info["temp"]["inside"])
     tempout = info["temp"]["outside"]
     safetemphigh = set_temp + 6.0
@@ -32,7 +32,7 @@ def automatic(info):
     humidout = info["humidity"]["outside"]
     safehumidhigh = set_humid + 2.0
     safehumidlow = set_humid - 2.0
-    humidDiff = info["humidity"]["outside"] - float(info["humidity"]["inside"])
+    humidDiff = abs(info["humidity"]["outside"] - float(info["humidity"]["inside"]))
 
     check = "temp"
 
@@ -92,7 +92,6 @@ def manual(info):
     return info
 
 def main(info):
-    time.sleep(10)
     mode = info["settings"]["mode"]
     if mode == "auto":
         print("auto")

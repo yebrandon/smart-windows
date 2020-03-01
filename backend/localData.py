@@ -77,6 +77,7 @@ def sendWindowState():
         else:
                 return jsonify(error=False, msg="Success", code=200, data=info["windowState"])
 
+#command
 @app.route("/data/command", methods=["POST"])
 @cross_origin()
 def sendCommand():
