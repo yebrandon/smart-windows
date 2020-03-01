@@ -8,8 +8,9 @@ class Settings extends React.Component
 	{
 		super(props);
 		this.state = {
-			location: '',
-			pref_temp: 0,
+			country: '',
+			city:'',
+			pref_temp: 0.0,
 			open_time: [],
 			close_time: [],
 			mode:'',
@@ -21,8 +22,9 @@ class Settings extends React.Component
 	}
 
 	async sendLocation()
-    {
-        const response = await axios.post('http://localhost:5000/data/settings', this.location)
+    { 
+		var location = { "country" : this.country, "city" : this.city}
+        const response = await axios.post('http://localhost:5000/data/settings', location)
 	}
 
 	async sendTemp()
@@ -42,9 +44,13 @@ class Settings extends React.Component
         const response = await axios.post('http://localhost:5000/data/settings', this.mode)
 	}
   
-	handleLocationChange (evt) 
+	handleCountryChange (evt) 
 	{
-		this.setState({ location: evt.target.value });
+		this.setState({ country: evt.target.value });
+	}
+	handleCityChange (evt) 
+	{
+		this.setState({ city: evt.target.value });
 	}
 	  
 	handleTempChange (evt) 
@@ -85,11 +91,14 @@ class Settings extends React.Component
 				</select>
 				<br></br>
 
-
-				<label>Location: </label>
-				<input type="text" name="location" onChange={this.handleLocationChange} />
+				<label>Country: </label>
+				<input type="text" name="country" onChange={this.handleCountryChange} />
 				<br></br>
 				
+				<label>City: </label>
+				<input type="text" name="city" onChange={this.handleCityChange} />
+				<br></br>
+
 				<label>Preferred Temperature (Celcius): </label>
 				<input type="number" name="pref_temp" onChange={this.handleTempChange} />
 				<br></br>
