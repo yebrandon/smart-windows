@@ -78,7 +78,7 @@ def sendSettings():
             settings = readFile("settings")
         except:
             return jsonify(error=True, msg="Not found", code=404, data='')
-        return jsonify(error=False, msg="Success", code=200, data=settings)
+        return jsonify(error=False, msg="Success", code=200, data=json.loads(settings))
 
 @app.route('/data/windowState', methods=["GET", "POST"])
 def sendWindowState():
