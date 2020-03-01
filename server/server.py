@@ -1,4 +1,5 @@
 from flask import Flask, request, jsonify
+import os
 
 app = Flask(__name__)
 
@@ -77,8 +78,24 @@ def sendWindowState():
         writeFile("windowState", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
-        windowState = readFile("windowState")
+        try:
+            windowState = readFile("windowState")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
         return jsonify(error=False, msg="Success", code=200, data=windowState)
 
+@app.route('/data/command', methods=["GET", "POST"])
+def sendCommand():
+    if request.method == "POST":
+        writeFile("command", request.form['data'])
+        return jsonify(error=False, msg="Success", code=200, data='')
+    else:
+        try:
+            command = readFile("command")
+            os.remove("command")
+        except:
+            return jsonify(error=True, msg="Not found", code=404, data='')
+        return jsonify(error=False, msg="Success", code=200, data=command)
+
 if __name__ == "__main__":
-    app.run(debug=True, host='0.0.0.0')
+    app.run(debug=True, host='0.0.0.0', port=5001)
