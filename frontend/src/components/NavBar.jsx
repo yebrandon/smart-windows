@@ -6,20 +6,19 @@ class NavBar extends React.Component {
 	render() {
 		return (
 			<>
-			<h1>SMART WINDOWS</h1>
 			<nav className="Nav">
 				<ul className="navitems">
 					<NavLink
 						className="link-item home"
 						activeClassName="link-item-active home"
-						to="/home"
+						to="/Home"
 					>
 						Home
 					</NavLink>
 					<NavLink
 						className="link-item settings"
 						activeClassName="link-item-active settings"
-						to="/settings"
+						to="/Settings"
 					>
 						Settings
 					</NavLink>
