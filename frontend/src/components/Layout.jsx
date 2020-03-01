@@ -14,8 +14,8 @@ class Layout extends React.Component{
 		super(props);
 		this.state = 
 		{
-            temp:'',
-            windowState:'',
+            temp:'me',
+            windowState:'help',
             open_time:"00:00",
             close_time:"00.00"
 		};
@@ -23,44 +23,46 @@ class Layout extends React.Component{
 
 	changeHandler = (e) =>
 	{
-		this.setState({[e.target.name]: e.target.value})
+        this.setState({[e.target.name]: e.target.value})
+        // this.setState({windowState: this.getWindowState()})
+        this.getTemp();
 	}
 
 	handleSubmit = (e) =>
     {
-		e.preventDefault()
+        e.preventDefault()
 		console.log(this.state.open_time)
 		console.log(this.state.close_time)
 		axios
-			.post('http//:localhost:5000/data/settings', this.state.open_time)
+			.post('http://localhost:5000/data/settings', {open_time: this.state.open_time, close_time: this.state.close_time})
 			.then(response => {
 				console.log(response)
 			})
 			.catch(error =>{
 				console.log(error)
             })
-        axios
-			.post('http//:localhost:5000/data/settings', this.state.close_time)
-			.then(response => {
-				console.log(response)
-			})
-			.catch(error =>{
-				console.log(error)
-			})
 	}
 
     async getTemp(){
-        const response =
-          await axios.get("http//:localhost:5000/data/temp")
-        console.log(response.data)
-        this.temp =  response.data
+          await axios.get("http://localhost:5000/data/temp")
+          .then(function(response) {
+            console.log(response)
+            this.setState({temp: response.data})
+          }.bind(this));
     }
 
     async getWindowState(){
-        const response =
-          await axios.get("http//:localhost:5000/data/windowState")
-        console.log(response.data)
-        this.windowState = response.data
+        const response = await axios("http://localhost:5000/data/windowState")
+        .then (response => {
+            const data  =response.data;
+            this.setState({windowState :})
+        })
+         //this.setState({windowState: response.data})
+    }
+
+    componentDidMount() {
+        // this.interval = setInterval(this.getTemp(), 1000);
+        // this.interval2 = setInterval(this.getWindowState(), 1000);
     }
 
     render(){

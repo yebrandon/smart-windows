@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
 import os
+import json
 
 app = Flask(__name__)
 
@@ -63,7 +64,14 @@ def sendPrecip():
 @app.route('/data/settings', methods=["GET", "POST"])
 def sendSettings():
     if request.method == "POST":
-        writeFile("settings", request.form['data'])
+        try:
+            req_data = json.loads(request.form['data'])
+            file_data = json.loads(readFile("settings"))
+            for key in req_data.keys():
+                file_data[key] = req_data[key]
+            writeFile("settings", json.dumps(file_data))
+        except:
+            writeFile("settings", request.form['data'])
         return jsonify(error=False, msg="Success", code=200, data='')
     else:
         try:

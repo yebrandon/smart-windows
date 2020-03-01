@@ -13,7 +13,7 @@ import json
 app = Flask(__name__)
 cors = CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
-info = {"temp": {}, "settings":{"country":"", "city":"", "mode":"", "pref_temp":"", "open_time": "", "close_time": ""},"humidity":{},"windowState":""}
+info = {"temp": {"inside":"", "outside":""}, "settings":{"country":"", "city":"", "mode":"", "pref_temp":"", "open_time": "", "close_time": ""},"humidity":{"inside":"", "outside":""},"windowState":""}
 # URL = "http://10.10.10.160/data/"
 URL = "http://130.15.38.40/data/"
 
@@ -23,7 +23,7 @@ def frontEndSettings():
         if request.method == "POST":
                 data = request.get_json()
                 info["settings"] = data
-                getData.post_request(URL+"settings", {'data': data})
+                getData.post_request(URL+"settings", {'data': json.dumps(data)})
                 return jsonify(error=False, msg="Success", code=200, data='')
         else:#get
                 return jsonify(error=False, msg="Success", code=200, data=info["settings"])
@@ -77,7 +77,7 @@ def sendWindowState():
 def sendCommand():
         if request.method == "POST":
                 data = request.get_json()
-                info["command"] = data
+                info["command"] = data['data']
                 getData.post_request(URL+"command",{"data": info["command"]})
                 return jsonify(error=False, msg="Success", code=200, data='')
                 
@@ -99,7 +99,7 @@ def getInfo():
                 sleep(6)
 
 if __name__ == "__main__":
-       Thread(target = getInfo).start()
+       Thread(target=getInfo).start()
        app.run(debug=True, port=5000)
        
 
