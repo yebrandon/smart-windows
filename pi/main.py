@@ -6,29 +6,50 @@ Acts as the central processing file for the r-pi
 import server_interactions as server
 import time
 import check_sensors as sense
-
-#updates the current data from the r-pi
-def updateData(node):
-    return {"temp" : sense.getTemp(node), "humidity" : sense.getHum(node), "precip" : sense.getPrec(node), "windowState" : window_state}
+import offline
 
 #define the end URL and setup the node
 URL = "http://10.10.10.160/data/"
 cmd_location = "command"
 node = sense.setupNode()
 window_state = "open"
+settings = ""
+response = {} 
+
+#updates the current data from the r-pi
+def update_data(node):
+    return {"temp" : sense.get_temp(node), "humidity" : sense.get_hum(node), "precip" : sense.get_prec(node), "windowState" : window_state}
+
+#sets the window_state to the given
+def set_window_state(new_state):
+    window_state = new_state
 
 #main loop
 while(True):
+    #update the data
+    data = update_data(node)
+    offline = False
+
     #upload the current data to the server
-    data = updateData(node)
     for key, dat in data.items():
-        print(server.post_request(URL+key, {"data" : dat}))
-    
+        response[key] = server.post_request(URL+key, {"data" : dat})
+        
+        #if an error occurred
+        if (response[key]["error"]):
+            offline = True
+
     #retrieve instructions from the server
     cmd = server.get_request(URL+cmd_location)
+    if (cmd["error"]):
+        offline = True
     print(cmd)
 
-    if (cmd == "open" or cmd == "close"):
+    if (cmd["data"] == "open" or cmd["data"] == "close"):
         window_state = cmd
 
-    time.sleep(10)
+    #preform offline logic if server cannot be reached
+    if (offline):
+        offline.update(data)
+
+    #wait
+    time.sleep(2)
