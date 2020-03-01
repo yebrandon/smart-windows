@@ -16,6 +16,7 @@ window_state = "open"
 settings = ""
 response = {} 
 timeout_counter = 0
+delay = 2
 
 #updates the current data from the r-pi
 def update_data(node):
@@ -26,7 +27,6 @@ while(True):
     #update the data
     data = update_data(node)
     disconnect = False
-    delay = 2
 
     #upload the current data to the server
     for key, dat in data.items():
@@ -51,6 +51,9 @@ while(True):
     #preform offline logic if server cannot be reached
     if (disconnect):
         window_state, delay, timeout_counter = offline.update(data, timeout_counter)
+    elif (timeout_counter != 0):
+        timeout_counter = 0
+        delay = 2
 
     print("--------------------------------")
     #wait
