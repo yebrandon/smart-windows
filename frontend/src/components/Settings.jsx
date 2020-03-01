@@ -1,6 +1,9 @@
 import React from "react"
 import axios from "axios"
 import "./Settings.css"
+import TimeInput from 'react-time-input';
+import TimeField from 'react-simple-timefield';
+
 class Settings extends React.Component 
 {
 	constructor(props) 
@@ -11,8 +14,6 @@ class Settings extends React.Component
 			country :'',
 			city : '',
 			pref_temp: 0.0,
-			open_time: [],
-			close_time: [],
 			mode:'auto',
 		};
 	}
@@ -27,24 +28,25 @@ class Settings extends React.Component
 		e.preventDefault()
 		console.log(this.state)
 		axios
-			.post('http://localhost:5000/data/settings', this.state)
+			.post('http//:localhost:5000/data/settings', this.state)
 			.then(response => {
 				console.log(response)
 			})
 			.catch(error =>{
 				console.log(error)
 			})
-    }
+	}
+
 
 	render() 
 	{
-		
-		const { city, country, pref_temp, mode } = this.state
+
+		const { city, country, pref_temp, mode, open_time } = this.state
 		return (
 			<>
 				<h1>Settings</h1>
 				<form onSubmit={this.handleSubmit}>
-      
+
 				<label>Preferred Temperature (Celcius): </label>
 				<input type="number" name="pref_temp" value = {parseFloat(pref_temp)} onChange={this.changeHandler} />
 				<br></br>

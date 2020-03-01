@@ -1,0 +1,21 @@
+body{
+    background-color: white;
+}
+h1{
+    color: limegreen;
+    text-align: center;
+    /*line-height: 900px;*/
+    padding-top: 100px;
+    padding-bottom: -100px;
+}
+p{
+    color: darkgreen;
+    font-family: comic-sans;
+    font-size: 20px;
+}
+
+h2{
+    color: limegreen;
+    text-align: center;
+    padding-top: 100px;
+}
