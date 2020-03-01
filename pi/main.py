@@ -4,7 +4,7 @@ Acts as the central processing file for the r-pi
 
 #imports
 import server_interactions as server
-import time
+import time as t
 import check_sensors as sense
 import offline
 
@@ -71,8 +71,8 @@ while(True):
         print(setting["error"])
     else:
         #calculate time
-        end_time = time.time() + setting["time"]
-        hold_window(time.time(), end_time)
+        #end_time = t.time() + setting["time"]
+        #hold_window(t.time(), end_time)
 
     if (cmd["data"] == "open" or cmd["data"] == "close"):
         window_state = cmd
@@ -86,4 +86,4 @@ while(True):
 
     print("--------------------------------")
     #wait
-    time.sleep(delay)
+    t.sleep(delay)
