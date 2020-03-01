@@ -4,38 +4,11 @@ back end stuff
 import getData
 import datetime
 import time
+import getData
 #import webScraper
 #import localData
-
-def openWindow(state):
-    """
-    when the window needs to be open call the function if the window is open then do nothing
-    :return: window state?
-    """
-    time.sleep(10)
-    if state == "close":
-        print("Opening Window")
-        print("Window State: Open")
-        state = "open"
-    else:
-        print("Window State: Open")
-    return state
-
-
-def closeWindow(state):
-    """
-    to close the window
-    :return:
-    """
-    time.sleep(10)
-
-    if state == "open":
-        print("Closing Window")
-        print("Window State: Closed")
-        state= "close"
-    else:
-        print("Window State: Closed")
-    return state
+#URL = "http://10.10.10.160/data/"
+URL = "http://130.15.38.40/data/"
     
 def automatic(info):
     """
@@ -63,61 +36,56 @@ def automatic(info):
     check = "temp"
 
     if percipitation == True: #if rain or not
-        info["windowState"] = closeWindow(info["windowState"])
+        info["windowState"] = getData.post_request(URL+"command",{"data":"close"})
     elif tempin >= safetemplow and tempin <= safetemphigh:  # safe range of the set temp
         check = "hum"
     elif tempin < set_temp: # compare the temp to know if open or not
         if tempout >= set_temp:
-            info["windowState"] = openWindow(info["windowState"])
+            info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
         elif tempout < set_temp:
             if tempDiff > 5:
-                info["windowState"] = openWindow(info["windowState"])
+                info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
             else:
-                info["windowState"] = closeWindow(info["windowState"])
+                info["windowState"] = getData.post_request(URL+"command",{"data":"close"})
     elif tempin > set_temp:
         if tempout < set_temp:
-            info["windowState"] = openWindow(info["windowState"])
+            info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
         elif tempout > set_temp:
             if tempDiff < 5:
-                info["windowState"] = openWindow(info["windowState"])
+                info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
             else:
-                info["windowState"] = closeWindow(info["windowState"])
+                info["windowState"] = getData.post_request(URL+"command",{"data":"close"})
 
     if check == "hum":
         if humidin >= safehumidlow and humidin <= safehumidhigh:  # safe humid range
             pass
         elif humidin < set_humid:  # compare the humid to determent if open or close
             if humidout >= set_humid:
-                info["windowState"] = openWindow(info["windowState"])
+                info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
             elif humidout < set_humid:
                 if humidDiff > 10:
-                    info["windowState"] = openWindow(info["windowState"])
+                    info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
                 else:
-                    info["windowState"] = closeWindow(info["windowState"])
+                    info["windowState"] = getData.post_request(URL+"command",{"data":"close"})
         elif humidin >= set_humid:
             if humidout <= set_humid:
-                info["windowState"] = openWindow(info["windowState"])
+                info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
             elif humidout > set_humid:
                 if humidDiff < 10:
-                    info["windowState"] = openWindow(info["windowState"])
+                    info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
                 else:
-                    info["windowState"] = closeWindow(info["windowState"])
+                    info["windowState"] = getData.post_request(URL+"command",{"data":"close"})
     return info
 
 def manual(info):
     now = datetime.datetime.now()
     opentime = info["settings"]["open_time"]
     if now.hour == opentime[0] and now.minute == opentime[1]:
-        info["windowState"] = openWindow(info["windowState"])
+        info["windowState"] = getData.post_request(URL+"command",{"data":"open"})
 
     closetime = info["settings"]["close_time"]
     if now.hour == closetime[0] and now.minute == closetime[1]:
-        info["windowState"] = closeWindow(info["windowState"])
-
-    if info["command"] == "open":
-        info["windowState"] = openWindow(info["windowState"])
-    elif info["command"] == "close":
-        info["windowState"] = closeWindow(info["windowState"])
+        info["windowState"] = getData.post_request(URL+"command",{"data":"close"})
 
     return info
 
