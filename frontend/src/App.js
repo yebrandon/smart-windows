@@ -7,6 +7,9 @@ import Footing from "./components/Footing";
 import Home from "./components/Home";
 import Mode from "./components/Mode";
 import Actions from "./components/Actions";
+import Layout from "./components/Layout"
+import SetTime from './components/SetTime';
+import House from './components/House';
 
 function App() {
 	return (
@@ -19,10 +22,12 @@ function App() {
 				<Switch>
 					
 					<Route path="/" exact component={Home} />
-					<Route path="/home" exact component={Home} />
-					<Route path = "/settings" exact component = {Settings}/>
-					<Route path = "/mode" exact component = {Mode}/>
-					<Route path = "/actions" exact component = {Actions}/>
+					<Route path="/Home" exact component={Home} />
+					<Route path = "/Settings" exact component = {Settings}/>
+					<Route path="/Layout" exact component={Layout}/>
+					<Route path = "/Actions" exact component = {Actions}/>
+					<Route path = "/House" exact component = {House}/>
+					<Route path="/SetTime" exact component={SetTime}/>
           			
 				</Switch>
 			</Router>
