@@ -12,7 +12,7 @@ def update(data):
     #TODO logic here
     print("Connection error. Attempting offline logic.")
     print("Current state: ")
-    print("Temp: " + temp)
-    print("Hum.: " + humidity)
-    print("Prec: " + precip)
+    print("Temp: " + str(temp))
+    print("Hum.: " + str(humidity))
+    print("Prec: " + str(precip))
     print("Win.: " + window_state)
