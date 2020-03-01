@@ -28,7 +28,11 @@ class Settings extends React.Component
 		e.preventDefault()
 		console.log(this.state)
 		axios
+<<<<<<< HEAD
 			.post('http//:localhost:5000/data/settings', this.state)
+=======
+			.post('http://localhost:5000/data/settings', this.state)
+>>>>>>> aba2d70611be685729562df135cf068b1a1438cb
 			.then(response => {
 				console.log(response)
 			})

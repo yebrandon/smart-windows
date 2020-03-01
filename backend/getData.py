@@ -6,7 +6,8 @@ from multiprocessing import Process, Queue, Pipe
 import json
 
 #URL = "https://yebrandon.github.io/smart-windows/data/"
-URL = "http://10.10.10.160/data/"
+# URL = "http://10.10.10.160/data/"
+URL = "http://130.15.38.40/data/"
 
 def get_request(url):#getting data
     request = urllib.request.Request(url, method="GET")
@@ -24,7 +25,7 @@ def post_request(url, b):#sending data
 def getTemp():
     #temp["houseTemp"] is house temp, temp["outsideTemp"], temp["set"]
     tempURL = URL+"temp"
-    temp = get_request(tempURL);
+    temp = get_request(tempURL)
     return temp
 
 def getHumidity():
