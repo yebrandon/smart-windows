@@ -6,7 +6,8 @@ from multiprocessing import Process, Queue, Pipe
 import json
 
 #URL = "https://yebrandon.github.io/smart-windows/data/"
-URL = "http://10.10.10.160/data/"
+# URL = "http://10.10.10.160/data/"
+URL = "http://130.15.38.40/data/"
 
 def get_request(url):#getting data
     request = urllib.request.Request(url, method="GET")
