@@ -1,13 +1,12 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import navBar from "./components/navBar";
-import settings from "./components/settings";
+import NavBar from "./components/NavBar";
+import Settings from "./components/Settings";
 import Footing from "./components/Footing";
-import home from "./components/home"
-
+import Home from "./components/Home";
+import Mode from "./components/Mode";
+import Actions from "./components/Actions";
 
 function App() {
 	return (
@@ -15,10 +14,16 @@ function App() {
 			<Router>
 				<div className="heading-container">
 					{/* <img className="dunin-logo" src={Dunin} alt="Dunin"></img> */}
-					<navBar></navBar>
+					<NavBar></NavBar>
 				</div>
 				<Switch>
-					<Route path="/" exact component={home} />
+					
+					<Route path="/" exact component={Home} />
+					<Route path="/home" exact component={Home} />
+					<Route path = "/settings" exact component = {Settings}/>
+					<Route path = "/mode" exact component = {Mode}/>
+					<Route path = "/actions" exact component = {Actions}/>
+          			
 				</Switch>
 			</Router>
 			<Footing></Footing>
