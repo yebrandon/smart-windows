@@ -8,34 +8,41 @@ from time import sleep
 
 app = Flask(__name__)
 info = {}
+URL = "http://10.10.10.160/data/"
 
 @app.route("/data/settings", methods = ["POST", "GET"])
 def frontEndSettings():
         if request.method == "POST":
-                windowModeList = request.form['mode']
+                info["settings"] = request.form['mode']
         else:#get
                 return(info["setting"])
 
 @app.route("/data/humidity", methods = ["POST", "GET"])
 def frontEndHumidity():
         if request.method == "POST":
-                windowModeList = request.form['mode']
+                info["humidity"] = request.form['humidity']
         else:#get
                 return(info["humidity"])
 
 @app.route("/data/precip", methods = ["POST", "GET"])
 def frontEndPercip():
         if request.method == "POST":
-                windowModeList = request.form['mode']
+                info["precip"] = request.form['precip']
         else:#get
                 return(info["precip"])
 
 @app.route("/data/temp", methods = ["POST", "GET"])
 def frontEndTemp():
         if request.method == "POST":
-                windowModeList = request.form['mode']
+                info["temp"] = request.form['temp']
         else:#get
                 return(info["temp"])
+
+@app.route("/data/command", methods=["POST"])
+def sendWindowState():
+        if request.method == "POST":
+                getData.post_request(URL+"command",{"data": info["command"]})
+                
                 
 def getInfo():
         global info
@@ -43,8 +50,9 @@ def getInfo():
             info['temp'] = getData.getTemp()
             info["humidity"] = getData.getHumidity()
             info["precip"]= getData.getPercipitation()
-            #info["WindowState"] = getData.getWindowState()
+            info["windowState"] = getData.getWindowState()
             info["setting"] = getData.getSettings()
+            info["command"] = "open"
             sleep(6)
 
 if __name__ == "__main__":
