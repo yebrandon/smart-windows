@@ -25,7 +25,7 @@ class Toggle extends React.Component {
       {
         console.log("open")
         axios
-        .post("http//:localhost:5000/data/command", "open")
+        .post("http://localhost:5000/data/command", {data: "open"})
         .then(response => {
           console.log(response)
         })
@@ -37,7 +37,7 @@ class Toggle extends React.Component {
       {
         console.log("closed")
         axios
-        .post("http//:localhost:5000/data/command", "closed")
+        .post("http://localhost:5000/data/command", {data: "close"})
         .then(response => {
           console.log(response)
         })
