@@ -37,12 +37,15 @@ while(True):
         #if an error occurred
         if (response[key]["error"]):
             connect = True
+            print("Failed to send " + key + " data.")
+            print(responses[key])
 
     #retrieve instructions from the server
     cmd = server.get_request(URL+cmd_location)
     if (cmd["error"]):
         connect = True
-    print(cmd)
+        print("Failed to recieve cmd data.")
+        print(cmd)
 
     if (cmd["data"] == "open" or cmd["data"] == "close"):
         window_state = cmd
@@ -51,5 +54,6 @@ while(True):
     if (connect):
         offline.update(data)
 
+    print("--------------------------------")
     #wait
     time.sleep(2)
