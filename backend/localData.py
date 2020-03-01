@@ -97,9 +97,8 @@ def getInfo():
                 info["settings"] = getData.getSettings()
                 print(info)
                 info["temp"]["outside"], info["humidity"]["outside"] = webScraper.main(info["settings"]["city"], info["settings"]["country"])
-                print(str(info["temp"]["outside"])+"   "+str(info["humidity"]["outside"]))
                 manageData.main(info)
-                sleep(6)
+                sleep(2)
 
 if __name__ == "__main__":
        Thread(target=getInfo).start()
