@@ -10,10 +10,10 @@ import offline
 
 #define the end URL and setup the node
 URL = "http://10.10.10.160/data/"
-cmd_location = "command"
 node = sense.setupNode()
 window_state = "open"
-settings = ""
+cmd_location = "command"
+set_location = "settings"
 response = {} 
 timeout_counter = 0
 delay = 2
@@ -21,6 +21,12 @@ delay = 2
 #updates the current data from the r-pi
 def update_data(node):
     return {"temp" : sense.get_temp(node), "humidity" : sense.get_hum(node), "precip" : sense.get_prec(node), "windowState" : window_state}
+
+#states whether the window should be held in the current position or not for a set amount of time
+def hold_window(start_time, end_time):
+    if (end_time <= start_time):
+        return False
+    return True
 
 #main loop
 while(True):
@@ -30,7 +36,11 @@ while(True):
 
     #upload the current data to the server
     for key, dat in data.items():
-        response[key] = server.post_request(URL+key, {"data" : dat})
+        try:
+            response[key] = server.post_request(URL+key, {"data" : dat})
+        except (Exception):
+            response[key] = {"error" : True}
+            print("Error occurred while saving " + key + " data. Route issue?")
         
         #if an error occurred
         if (response[key]["error"]):
@@ -39,11 +49,30 @@ while(True):
             print(response[key])
 
     #retrieve instructions from the server
-    cmd = server.get_request(URL+cmd_location)
+    try:
+        cmd = server.get_request(URL+cmd_location)
+    except (Exception):
+        cmd = {"error" : True}
+        print("Error occurred while retrieving cmd data. Route issue?")
+    
+    try:
+        setting = server.get_request(URL+set_location)
+    except (Exception):
+        setting = {"error" : True}
+        print("Error occurred while retrieving setting data. Route issue?")
+    
     if (cmd["error"]):
         disconnect = True
         print("Failed to recieve cmd data.")
         print(cmd)
+    if (setting["error"]):
+        disconnect = True
+        print("Failed to recieve setting data.")
+        print(setting["error"])
+    else:
+        #calculate time
+        end_time = time.time() + setting["time"]
+        hold_window(time.time(), end_time)
 
     if (cmd["data"] == "open" or cmd["data"] == "close"):
         window_state = cmd
