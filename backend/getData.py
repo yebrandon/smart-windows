@@ -12,14 +12,14 @@ def get_request(url):#getting data
     request = urllib.request.Request(url, method="GET")
     with urllib.request.urlopen(request) as response:
         data = json.loads(response.read().decode('ascii'))
-    return data
+    return data['data']
 
 def post_request(url, b):#sending data
     body = urllib.parse.urlencode(b).encode('ascii')
     request = urllib.request.Request(url, data=body, method="POST")
     with urllib.request.urlopen(request) as response:
         data = json.loads(response.read().decode('ascii'))
-    return data
+    return data['data']
 
 def getTemp():
     #temp["houseTemp"] is house temp, temp["outsideTemp"], temp["set"]
