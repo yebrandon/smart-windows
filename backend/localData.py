@@ -14,9 +14,10 @@ app = Flask(__name__)
 cors = CORS(app)
 app.config["CORS_HEADERS"] = "Content-Type"
 info = {"temp": {"inside":"", "outside":""}, "settings":{"country":"", "city":"", "mode":"", "pref_temp":"", "open_time": "", "close_time": ""},"humidity":{"inside":"", "outside":""},"windowState":""}
-# URL = "http://10.10.10.160/data/"
-URL = "http://130.15.38.40/data/"
+URL = "http://10.10.10.160/data/"#for pi
+#URL = "http://130.15.38.40/data/"
 
+#settings
 @app.route("/data/settings", methods = ["POST", "GET"])
 @cross_origin()
 def frontEndSettings():
@@ -28,9 +29,10 @@ def frontEndSettings():
         else:#get
                 return jsonify(error=False, msg="Success", code=200, data=info["settings"])
 
+#humidity
 @app.route("/data/humidity", methods = ["POST", "GET"])
 @cross_origin()
-def frontEndHumidity():
+def frontEndHumidity():#
         if request.method == "POST":
                 data = request.get_json()
                 info["humidity"] = data
@@ -39,6 +41,7 @@ def frontEndHumidity():
         else:#get
                 return jsonify(error=False, msg="Success", code=200, data=info["humidity"])
 
+#percipitation
 @app.route("/data/precip", methods = ["POST", "GET"])
 @cross_origin()
 def frontEndPercip():
@@ -50,6 +53,7 @@ def frontEndPercip():
         else:#get
                 return jsonify(error=False, msg="Success", code=200, data=info["precip"])
 
+#temp
 @app.route("/data/temp", methods = ["POST", "GET"])
 @cross_origin()
 def frontEndTemp():
@@ -61,6 +65,7 @@ def frontEndTemp():
         else:#get
                 return jsonify(error=False, msg="Success", code=200, data=info["temp"])
 
+#window state
 @app.route("/data/windowState", methods=["POST", "GET"])
 @cross_origin()
 def sendWindowState():
@@ -81,7 +86,7 @@ def sendCommand():
                 getData.post_request(URL+"command",{"data": info["command"]})
                 return jsonify(error=False, msg="Success", code=200, data='')
                 
-                
+#loop that runs the data collection and automatic/manual             
 def getInfo():
         global info
         while True:

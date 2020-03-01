@@ -7,9 +7,10 @@ import time
 import getData
 #import webScraper
 #import localData
-#URL = "http://10.10.10.160/data/"
-URL = "http://130.15.38.40/data/"
-    
+URL = "http://10.10.10.160/data/"
+#URL = "http://130.15.38.40/data/"
+
+#for autonomous use
 def automatic(info):
     """
     the auto open and close function
@@ -77,6 +78,7 @@ def automatic(info):
                     getData.post_request(URL+"command",{"data":"close"})
     return info
 
+#user manual control
 def manual(info):
     now = datetime.datetime.now()
     opentime = info["settings"]["open_time"]
