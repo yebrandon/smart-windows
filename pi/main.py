@@ -72,7 +72,7 @@ while(True):
         print("Failed to recieve cmd data.")
         print(cmd)
     elif (cmd["data"] == "open" or cmd["data"] == "close"):
-        window_state = cmd
+        window_state = cmd["data"]
     
     """
     if (setting["error"]):
