@@ -97,8 +97,11 @@ def getInfo():
                 info["windowState"] = getData.getWindowState()
                 info["settings"] = getData.getSettings()
                 print(info)
-                info["temp"]["outside"], info["humidity"]["outside"] = webScraper.main(info["settings"]["city"], info["settings"]["country"])
-                manageData.main(info)
+                try:
+                    info["temp"]["outside"], info["humidity"]["outside"] = webScraper.main(info["settings"]["city"], info["settings"]["country"])
+                    manageData.main(info)
+                except:
+                    pass
                 sleep(2)
 
 if __name__ == "__main__":

@@ -28,7 +28,7 @@ def main(city, country):
     APIKEY = "a42df1a0b008bd4fe512b771184734de"
     cityID = findID(city, country)
     dictHeaders = {"id":cityID, "APPID":APIKEY}#appid is api key
-    allData = (get_request("http://api.openweathermap.org/data/2.5/weather?id="+str(cityID)+"&APIKEY="+str(APIKEY)))
+    allData = (get_request("http://api.openweathermap.org/data/2.5/weather?id="+str(cityID)+"&APPID="+str(APIKEY)))
     temp = allData["main"]["feels_like"] - 273.15
     humidity = allData["main"]["humidity"]
     return([temp, humidity])
