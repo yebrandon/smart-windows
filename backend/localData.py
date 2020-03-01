@@ -86,20 +86,18 @@ def getInfo():
         global info
         while True:
                 info["temp"]["inside"] = getData.getTemp()
-                info["humidity"] = getData.getHumidity()
+                info["humidity"]["inside"] = getData.getHumidity()
                 info["precip"]= getData.getPercipitation()
                 info["windowState"] = getData.getWindowState()
                 info["settings"] = getData.getSettings()
-                info["command"] = "open"
-                try:
-                        info["temp"]["outside"], info["humidity"]["outside"] = webScraper.main(info["settings"]["location"]["city"], info["settings"]["location"]["country"])
-                        manageData.main(info)
-                except:
-                        pass
+                print(info)
+                info["temp"]["outside"], info["humidity"]["outside"] = webScraper.main(info["settings"]["city"], info["settings"]["country"])
+                print(str(info["temp"]["outside"])+"   "+str(info["humidity"]["outside"]))
+                manageData.main(info)
                 sleep(6)
 
 if __name__ == "__main__":
        Thread(target=getInfo).start()
        app.run(debug=True, port=5000)
-       
+       #getInfo()
 
