@@ -13,7 +13,7 @@ URL = "http://10.10.10.160/data/"
 node = sense.setupNode()
 window_state = "open"
 cmd_location = "command"
-set_location = "settings"
+#set_location = "settings"
 response = {} 
 timeout_counter = 0
 delay = 2
@@ -23,10 +23,12 @@ def update_data(node):
     return {"temp" : sense.get_temp(node), "humidity" : sense.get_hum(node), "precip" : sense.get_prec(node), "windowState" : window_state}
 
 #states whether the window should be held in the current position or not for a set amount of time
+"""
 def hold_window(start_time, end_time):
     if (end_time <= start_time):
         return False
     return True
+"""
 
 #main loop
 while(True):
@@ -55,28 +57,31 @@ while(True):
         cmd = {"error" : True}
         print("Error occurred while retrieving cmd data. Route issue?")
     
+    """
     try:
         setting = server.get_request(URL+set_location)
     except (Exception):
         setting = {"error" : True}
         print("Error occurred while retrieving setting data. Route issue?")
+    """
     
     if (cmd["error"]):
         disconnect = True
         print("Failed to recieve cmd data.")
         print(cmd)
+    elif (cmd["data"] == "open" or cmd["data"] == "close"):
+        window_state = cmd
+    
+    """
     if (setting["error"]):
         disconnect = True
         print("Failed to recieve setting data.")
         print(setting["error"])
     else:
         #calculate time
-        pass
-        #end_time = t.time() + setting["time"]
-        #hold_window(t.time(), end_time)
-
-    if (cmd["data"] == "open" or cmd["data"] == "close"):
-        window_state = cmd
+        end_time = t.time() + setting["time"]
+        hold_window(t.time(), end_time)
+    """
 
     #preform offline logic if server cannot be reached
     if (disconnect):
