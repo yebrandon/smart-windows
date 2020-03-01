@@ -52,7 +52,7 @@ while(True):
 
     #preform offline logic if server cannot be reached
     if (disconnect):
-        offline.update(data)
+        window_state = offline.update(data)
 
     print("--------------------------------")
     #wait

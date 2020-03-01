@@ -2,9 +2,6 @@
 Controls the logic of the r-pi window management when no network is available
 """
 
-#imports
-import main
-
 #checks whether the window should be open or closed
 def update(data):
     temp = data["temp"]
@@ -21,6 +18,6 @@ def update(data):
 
     #TODO logic here
     if (window_state == "close"):
-        main.set_window_state("open")
+        return "open"
     else:
-        main.set_window_state("close")
+        return "close"
