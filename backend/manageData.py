@@ -36,7 +36,7 @@ def automatic(info):
 
     check = "temp"
 
-    if percipitation == True: #if rain or not
+    if percipitation == "True": #if rain or not
         getData.post_request(URL+"command",{"data":"close"})
     elif tempin >= safetemplow and tempin <= safetemphigh:  # safe range of the set temp
         check = "hum"
