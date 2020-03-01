@@ -34,7 +34,7 @@ class Layout extends React.Component{
 		console.log(this.state.open_time)
 		console.log(this.state.close_time)
 		axios
-			.post('http://localhost:5000/data/settings', this.state.open_time)
+			.post('http://localhost:5000/data/settings', {open_time: this.state.open_time})
 			.then(response => {
 				console.log(response)
 			})
@@ -42,7 +42,7 @@ class Layout extends React.Component{
 				console.log(error)
             })
         axios
-			.post('http://localhost:5000/data/settings', this.state.close_time)
+			.post('http://localhost:5000/data/settings', {close_time: this.state.close_time})
 			.then(response => {
 				console.log(response)
 			})
