@@ -11,12 +11,6 @@ def update(data):
     humidity = data["humidity"]
     precip = data["precip"]
     window_state = data["windowState"]
-    
-    #TODO logic here
-    if (window_state == "close"):
-        main.set_window_state("open")
-    else:
-        main.set_window_state("close")
 
     print("Connection error. Attempting offline logic.")
     print("Current state: ")
@@ -24,3 +18,9 @@ def update(data):
     print("Hum.: " + str(humidity))
     print("Prec: " + str(precip))
     print("Win.: " + window_state)
+
+    #TODO logic here
+    if (window_state == "close"):
+        main.set_window_state("open")
+    else:
+        main.set_window_state("close")

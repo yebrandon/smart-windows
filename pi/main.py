@@ -28,7 +28,7 @@ def set_window_state(new_state):
 while(True):
     #update the data
     data = update_data(node)
-    connect = False
+    disconnect = False
 
     #upload the current data to the server
     for key, dat in data.items():
@@ -36,14 +36,14 @@ while(True):
         
         #if an error occurred
         if (response[key]["error"]):
-            connect = True
+            disconnect = True
             print("Failed to send " + key + " data.")
-            print(responses[key])
+            print(response[key])
 
     #retrieve instructions from the server
     cmd = server.get_request(URL+cmd_location)
     if (cmd["error"]):
-        connect = True
+        disconnect = True
         print("Failed to recieve cmd data.")
         print(cmd)
 
@@ -51,7 +51,7 @@ while(True):
         window_state = cmd
 
     #preform offline logic if server cannot be reached
-    if (connect):
+    if (disconnect):
         offline.update(data)
 
     print("--------------------------------")
