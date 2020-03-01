@@ -29,6 +29,7 @@ while(True):
     #update the data
     data = update_data(node)
     disconnect = False
+    delay = 2
 
     #upload the current data to the server
     for key, dat in data.items():
@@ -52,8 +53,8 @@ while(True):
 
     #preform offline logic if server cannot be reached
     if (disconnect):
-        window_state = offline.update(data)
+        window_state, delay = offline.update(data)
 
     print("--------------------------------")
     #wait
-    time.sleep(2)
+    time.sleep(delay)
