@@ -15,14 +15,11 @@ node = sense.setupNode()
 window_state = "open"
 settings = ""
 response = {} 
+timeout_counter = 0
 
 #updates the current data from the r-pi
 def update_data(node):
     return {"temp" : sense.get_temp(node), "humidity" : sense.get_hum(node), "precip" : sense.get_prec(node), "windowState" : window_state}
-
-#sets the window_state to the given
-def set_window_state(new_state):
-    window_state = new_state
 
 #main loop
 while(True):
@@ -53,7 +50,7 @@ while(True):
 
     #preform offline logic if server cannot be reached
     if (disconnect):
-        window_state, delay = offline.update(data)
+        window_state, delay = offline.update(data, timeout_counter)
 
     print("--------------------------------")
     #wait
