@@ -5,12 +5,14 @@ Description: Takes the country and city as apramaters in the main function and r
 import json
 import urllib.request
 
+#request messages
 def get_request(url):
     request = urllib.request.Request(url, method="GET")
     with urllib.request.urlopen(request) as response:
         data = json.loads(response.read().decode('ascii'))
     return data
 
+#finds ID for weather AP
 def findID(city, country): #city is ex. newmarket country is CA
     f= open("cityList.json", 'r')
     data = json.load(f)
@@ -19,7 +21,8 @@ def findID(city, country): #city is ex. newmarket country is CA
         #print(x)
         if x["name"].lower() == city.lower() and x["country"] == country.upper():
             return x["id"]
-        
+
+#returns temp and humidity outside values using openweathermap API    
 def main(city, country):
     url = "http://api.openweathermap.org/data/2.5/weather?"
     APIKEY = "a42df1a0b008bd4fe512b771184734de"
