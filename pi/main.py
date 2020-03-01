@@ -71,6 +71,7 @@ while(True):
         print(setting["error"])
     else:
         #calculate time
+        pass
         #end_time = t.time() + setting["time"]
         #hold_window(t.time(), end_time)
 
