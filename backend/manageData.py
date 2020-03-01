@@ -46,7 +46,7 @@ def automatic(info):
     set_temp = info["settings"]["pref_temp"]
     set_humid = 45
 
-    percipitation = info["percipitation"]
+    percipitation = info["precip"]
 
     tempDiff = info["temp"]["outside"] - info["temp"]["inside"]
     tempin = info["temp"]["inside"]
@@ -63,79 +63,75 @@ def automatic(info):
     check = "temp"
 
     if percipitation == True: #if rain or not
-        info["WindowState"] = closeWindow(info["WindowState"])
+        info["windowState"] = closeWindow(info["windowState"])
     elif tempin >= safetemplow and tempin <= safetemphigh:  # safe range of the set temp
         check = "hum"
     elif tempin < set_temp: # compare the temp to know if open or not
         if tempout >= set_temp:
-            info["WindowState"] = openWindow(info["WindowState"])
+            info["windowState"] = openWindow(info["windowState"])
         elif tempout < set_temp:
             if tempDiff > 5:
-                info["WindowState"] = openWindow(info["WindowState"])
+                info["windowState"] = openWindow(info["windowState"])
             else:
-                info["WindowState"] = closeWindow(info["WindowState"])
+                info["windowState"] = closeWindow(info["windowState"])
     elif tempin > set_temp:
         if tempout < set_temp:
-            info["WindowState"] = openWindow(info["WindowState"])
+            info["windowState"] = openWindow(info["windowState"])
         elif tempout > set_temp:
             if tempDiff < 5:
-                info["WindowState"] = openWindow(info["WindowState"])
+                info["windowState"] = openWindow(info["windowState"])
             else:
-                info["WindowState"] = closeWindow(info["WindowState"])
+                info["windowState"] = closeWindow(info["windowState"])
 
     if check == "hum":
         if humidin >= safehumidlow and humidin <= safehumidhigh:  # safe humid range
             pass
         elif humidin < set_humid:  # compare the humid to determent if open or close
             if humidout >= set_humid:
-                info["WindowState"] = openWindow(info["WindowState"])
+                info["windowState"] = openWindow(info["windowState"])
             elif humidout < set_humid:
                 if humidDiff > 10:
-                    info["WindowState"] = openWindow(info["WindowState"])
+                    info["windowState"] = openWindow(info["windowState"])
                 else:
-                    info["WindowState"] = closeWindow(info["WindowState"])
+                    info["windowState"] = closeWindow(info["windowState"])
         elif humidin >= set_humid:
             if humidout <= set_humid:
-                info["WindowState"] = openWindow(info["WindowState"])
+                info["windowState"] = openWindow(info["windowState"])
             elif humidout > set_humid:
                 if humidDiff < 10:
-                    info["WindowState"] = openWindow(info["WindowState"])
+                    info["windowState"] = openWindow(info["windowState"])
                 else:
-                    info["WindowState"] = closeWindow(info["WindowState"])
+                    info["windowState"] = closeWindow(info["windowState"])
     return info
 
 def manual(info):
     now = datetime.datetime.now()
     opentime = info["settings"]["open_time"]
     if now.hour == opentime[0] and now.minute == opentime[1]:
-        info["WindowState"] = openWindow(info["WindowState"])
+        info["windowState"] = openWindow(info["windowState"])
 
     closetime = info["settings"]["close_time"]
     if now.hour == closetime[0] and now.minute == closetime[1]:
-        info["WindowState"] = closeWindow(info["WindowState"])
+        info["windowState"] = closeWindow(info["windowState"])
 
-    if info["command"] == "on":
-        info["WindowState"] = openWindow(info["WindowState"])
-    elif info["command"] == "off":
-        info["WindowState"] = closeWindow(info["WindowState"])
+    if info["command"] == "open":
+        info["windowState"] = openWindow(info["windowState"])
+    elif info["command"] == "close":
+        info["windowState"] = closeWindow(info["windowState"])
 
     return info
 
-def main():
+def main(info):
     time.sleep(10)
-    info = getData.getInfo()
     mode = info["setting"]["mode"]
     if mode == "auto":
         allinfo = automatic(info)
     else:
         allinfo = manual(info)
 
-    state = allinfo["WindowState"]
+    state = allinfo["windowState"]
     
     return state
-
-
-main()
 
 if __name__ == '__main__':
     test = {}
@@ -147,8 +143,8 @@ if __name__ == '__main__':
     hum["inside"] = 20
     hum["outside"] = 40
     test["humidity"] = hum
-    test["percipitation"] = False
-    test["WindowState"] = "close"
+    test["precip"] = False
+    test["windowState"] = "close"
     settings={}
     settings["mode"] = "man"
     o_time = [19,16]
@@ -165,7 +161,7 @@ if __name__ == '__main__':
     else:
         allinfo = manual(test)
 
-    state = allinfo["WindowState"]
+    state = allinfo["windowState"]
 
     print(state)
 
