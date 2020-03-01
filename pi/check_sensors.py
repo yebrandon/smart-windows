@@ -17,14 +17,12 @@ def setupNode():
 #returns the current temp reading from the r-pi and flashes the LED
 def get_temp(node):
     node.turnOnUserLED()
-    time.sleep(0.2)
     node.turnOffUserLED()
     return node.readTemp()
 
 #returns the current humidity reading from the r-pi and flashes the LED
 def get_hum(node):
     node.turnOnUserLED()
-    time.sleep(0.2)
     node.turnOffUserLED()
     return node.readHum()
 
@@ -32,7 +30,6 @@ def get_hum(node):
 #Note: Assuming the sensor is on ADC3 (ADC counter starts at 0)
 def get_prec(node):
     node.turnOnUserLED()
-    time.sleep(0.2)
     node.turnOffUserLED()
     prec = node.readAdc(2)
     if (prec < 1000):
