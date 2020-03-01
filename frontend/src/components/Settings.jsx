@@ -27,7 +27,7 @@ class Settings extends React.Component
 		e.preventDefault()
 		console.log(this.state)
 		axios
-			.post('https://jsonplaceholder.typicode.com/posts', this.state)
+			.post('http://localhost:5000', this.state)
 			.then(response => {
 				console.log(response)
 			})
