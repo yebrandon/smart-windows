@@ -1,0 +1,15 @@
+h1{
+    padding-bottom: 60px;
+}
+#Open{
+    position:absolute;
+    transition: .5s ease;
+    top: 30%;
+    left: 39.2%;
+}
+p{
+    position:absolute;
+    transition: .5s ease;
+    top: 55%;
+    left: 53%;
+}
