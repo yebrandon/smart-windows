@@ -50,7 +50,7 @@ while(True):
 
     #preform offline logic if server cannot be reached
     if (disconnect):
-        window_state, delay = offline.update(data, timeout_counter)
+        window_state, delay, timeout_counter = offline.update(data, timeout_counter)
 
     print("--------------------------------")
     #wait

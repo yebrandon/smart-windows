@@ -20,9 +20,10 @@ def update(data, timeout_counter):
     print("Prec: " + str(precip))
     print("Win.: " + window_state)
 
-    if (timeout(timeout_counter)):
-        return "close", 10
-    return window_state, 5
+    quit, timeout_counter = timeout(timeout_counter)
+    if (quit):
+        return "close", 10, timeout_counter
+    return window_state, 5, timeout_counter
 
 #controls the timeout of a connect
 def timeout(timeout_counter):
@@ -31,5 +32,5 @@ def timeout(timeout_counter):
     if (timeout_counter > 6):
         print("All reconnection attempts failed.")
         print("Closing windows until connection can be restablished.")
-        return True
-    return False
+        return True, timeout_counter
+    return False, timeout_counter
