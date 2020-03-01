@@ -53,9 +53,18 @@ while(True):
     #retrieve instructions from the server
     try:
         cmd = server.get_request(URL+cmd_location)
+
+        if (cmd["data"] == ""):
+            print("No commands found.")
+        elif (cmd["data"] == "open" or cmd["data"] == "close"):
+            window_state = cmd["data"]
+            print(cmd)
     except (Exception):
         cmd = {"error" : True}
         print("Error occurred while retrieving cmd data. Route issue?")
+        disconnect = True
+        print("Failed to recieve cmd data.")
+        print(cmd)
     
     """
     try:
@@ -63,19 +72,7 @@ while(True):
     except (Exception):
         setting = {"error" : True}
         print("Error occurred while retrieving setting data. Route issue?")
-    """
-    
-    if (cmd["data"] == ""):
-        print("No commands found.")
-    elif (cmd["error"]):
-        disconnect = True
-        print("Failed to recieve cmd data.")
-        print(cmd)
-    elif (cmd["data"] == "open" or cmd["data"] == "close"):
-        window_state = cmd["data"]
-        print(cmd)
-    
-    """
+        
     if (setting["error"]):
         disconnect = True
         print("Failed to recieve setting data.")
