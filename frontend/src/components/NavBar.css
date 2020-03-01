@@ -1,0 +1,27 @@
+nav {
+	align-items: center;
+	display: flex;
+	justify-content: flex-end;
+	flex-direction: row;
+	width: 100%;
+}
+.navitems {
+	margin: 50px;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	flex-direction: row;
+	width: 100%;
+}
+.link-item {
+	padding: 5px;
+	font-size: 24px;
+	font-family: "Asap";
+	color: #212121;
+	text-decoration: none;
+}
+
+.link-item-active {
+	border-radius: 26px;
+	background-color: #f8e112;
+}
