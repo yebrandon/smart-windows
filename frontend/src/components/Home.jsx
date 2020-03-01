@@ -9,10 +9,7 @@ class Home extends React.Component {
 		return (
 			<div>
 				<h1>Smart Windows</h1>
-
-				<p> Watermelon Tech</p>
-
-				<h2>Press Button to continue...</h2>
+				<h5>By Watermelon Tech</h5>
 				
 				<Link to="/House">
 					<button type="button">

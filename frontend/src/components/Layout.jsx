@@ -74,22 +74,17 @@ class Layout extends React.Component{
                 <br></br>
                 <button type = "submit">Set</button>
                 </form>
-            
                 Window Status: {this.state.windowState}
                 <br></br>
                 Temperature: {this.state.temp}
                 <br></br>
-
-
                 <img src="https://i.stack.imgur.com/HplbK.png" width="400" height="200" alt="20 Crescent Drive, Kingston" ></img>
-
+                <h1>Manual Window Control</h1>
                 <Toggle type="Toggle" id = "On"></Toggle>
-                
-                
-
+                <h1>Additional Settings for Automatic Window Control</h1>
                 <Link to="/Settings">
 					<button type="button" name = "f">
-						Back
+						Settings
 					</button>
 				</Link>
             </div>

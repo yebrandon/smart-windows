@@ -1,10 +1,8 @@
 {
 	"Footer": {
-		"building": "Mitchell Hall Room 101",
-		"street": "310 Bagot St",
-		"province": "Kingston, ON",
-		"postalCode": "K7K 3B5",
-		"hours": "Monday - Friday 12:30-6:30pm",
+		"building": "Secure Internet of Technology Hackathon",
+		"street": "310 Bagot St, Kingston ON",
+		"info": "Smart Windows by Watermelon Tech",
 		"email": "contact@smartwindows.ca"
 	}
 }

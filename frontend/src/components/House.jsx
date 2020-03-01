@@ -8,8 +8,7 @@ class House extends React.Component {
 		return (
 			<div>
 				<h1>Your house(s)</h1>
-					<img src="https://previews.123rf.com/images/bruno1998/bruno19981009/bruno1998100900013/7697370-glossy-illustration-of-a-simple-house-with-one-window-and-door.jpg" width="200" height="80" alt="20 Crescent Drive, Kingston" ></img>
-				<p> Pick a house </p>
+					<img src="https://purepng.com/public/uploads/large/purepng.com-big-househousebuildinghomewood-houseconcrete-house-1701528487135irhd4.png" width="200" alt="20 Crescent Drive, Kingston" ></img>
 
 				<Link to="/Layout">
 					<button type="button">
