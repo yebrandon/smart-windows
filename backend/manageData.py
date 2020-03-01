@@ -1,3 +1,6 @@
+"""
+back end stuff
+"""
 import getData
 import datetime
 import time
@@ -125,10 +128,13 @@ def main():
     if mode == "auto":
         allinfo = automatic(info)
     else:
+<<<<<<< HEAD
+        allinfo = manual(mode["manual"],info)
+=======
         allinfo = manual(info)
 
+>>>>>>> 66c1f68b22ced387327953fb3efa95420959d480
     state = allinfo["WindowState"]
-
     return state
 
 main()
