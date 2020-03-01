@@ -73,6 +73,7 @@ while(True):
         print(cmd)
     elif (cmd["data"] == "open" or cmd["data"] == "close"):
         window_state = cmd["data"]
+        print(cmd)
     
     """
     if (setting["error"]):
