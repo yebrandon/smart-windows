@@ -65,7 +65,9 @@ while(True):
         print("Error occurred while retrieving setting data. Route issue?")
     """
     
-    if (cmd["error"]):
+    if (cmd["data"] == ""):
+        print("No commands found.")
+    elif (cmd["error"]):
         disconnect = True
         print("Failed to recieve cmd data.")
         print(cmd)
@@ -89,6 +91,12 @@ while(True):
     elif (timeout_counter != 0):
         timeout_counter = 0
         delay = 2
+
+    print("Current state: ")
+    print("Temp: " + str(data["temp"]))
+    print("Hum.: " + str(data["humidity"]))
+    print("Prec: " + str(data["precip"]))
+    print("Win.: " + window_state)
 
     print("--------------------------------")
     #wait

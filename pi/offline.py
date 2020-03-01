@@ -13,12 +13,6 @@ def update(data, timeout_counter):
         print("Connection error. Attempting to reconnect.")
     else:
         print("Reconnection fail #" + str(timeout_counter) + ". Attempting another reconnection.")
-    
-    print("Current state: ")
-    print("Temp: " + str(temp))
-    print("Hum.: " + str(humidity))
-    print("Prec: " + str(precip))
-    print("Win.: " + window_state)
 
     quit, timeout_counter = timeout(timeout_counter)
     if (quit):
