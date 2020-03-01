@@ -2,6 +2,8 @@ import React from "react";
 import axios from "axios";
 import Form from "./Form.jsx";
 import "./Settings.css";
+
+var querystring = require("querystring")
 class Settings extends React.Component 
 {
 	constructor(props) 
@@ -15,16 +17,17 @@ class Settings extends React.Component
 			close_time: [],
 			mode:'',
 		  };
-		this.handleLocationChange = this.handleLocationChange.bind(this);
+		this.handleCountryChange = this.handleCountryChange.bind(this);
+		this.handleCityChange = this.handleCityChange.bind(this);
+		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleTempChange = this.handleTempChange.bind(this);
 		this.sendLocation = this.sendLocation.bind(this);
 		this.sendTemp = this.sendTemp.bind(this);
 	}
 
 	async sendLocation()
-    { 
-		var location = { "country" : this.country, "city" : this.city}
-        const response = await axios.post('http://localhost:5000/data/settings', location)
+    {
+		const response = await axios.post('http://localhost:5000/data/settings', { "country" : this.country, "city" : this.city})
 	}
 
 	async sendTemp()
@@ -70,11 +73,12 @@ class Settings extends React.Component
 
 	handleSubmit(event) 
     {
-		this.sendMode();
+		event.preventDefault();
+		// this.sendMode();
 		this.sendLocation();
-		this.sendTemp();
-		this.sendClose();
-		this.sendOpen();
+		// this.sendTemp();
+		// this.sendClose();
+		// this.sendOpen();
     }
 
 	render() 
@@ -87,7 +91,7 @@ class Settings extends React.Component
 				<label for="mode">Choose a mode:</label>
 				<select id="mode" name="mode">
 					<option value="auto">Automatic</option>
-					<option value="saab">Manual</option>
+					<option value="man">Manual</option>
 				</select>
 				<br></br>
 
