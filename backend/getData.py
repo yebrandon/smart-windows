@@ -24,7 +24,7 @@ def post_request(url, b):#sending data
 def getTemp():
     #temp["houseTemp"] is house temp, temp["outsideTemp"], temp["set"]
     tempURL = URL+"temp"
-    temp = get_request(tempURL);
+    temp = get_request(tempURL)
     return temp
 
 def getHumidity():

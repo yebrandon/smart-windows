@@ -5,9 +5,10 @@ from threading import Thread
 import getData
 import manageData
 import webScraper
-from flask import Flask, redirect, request
+from flask import Flask, redirect, request, jsonify
 from flask_cors import CORS, cross_origin
 from time import sleep
+import json
 
 app = Flask(__name__)
 cors = CORS(app)
@@ -19,8 +20,10 @@ URL = "http://10.10.10.160/data/"
 @cross_origin()
 def frontEndSettings():
         if request.method == "POST":
-                print(request.data)
-                info["settings"] = request.form['data']
+                data = request.get_json()
+                info["settings"] = data
+                getData.post_request(URL+"settings", {'data': data})
+                return jsonify(error=False, msg="Success", code=200, data='')
         else:#get
                 return(info["settings"])
 
@@ -28,7 +31,10 @@ def frontEndSettings():
 @cross_origin()
 def frontEndHumidity():
         if request.method == "POST":
-                info["humidity"] = request.form['humidity']
+                data = request.get_json()
+                info["humidity"] = data
+                getData.post_request(URL+"humidity", {'data': data})
+                return jsonify(error=False, msg="Success", code=200, data='')
         else:#get
                 return(info["humidity"])
 
@@ -36,7 +42,10 @@ def frontEndHumidity():
 @cross_origin()
 def frontEndPercip():
         if request.method == "POST":
-                info["precip"] = request.form['precip']
+                data = request.get_json()
+                info["precip"] = data
+                getData.post_request(URL+"precip", {'data': data})
+                return jsonify(error=False, msg="Success", code=200, data='')
         else:#get
                 return(info["precip"])
 
@@ -44,7 +53,10 @@ def frontEndPercip():
 @cross_origin()
 def frontEndTemp():
         if request.method == "POST":
-                info["temp"] = request.form['temp']
+                data = request.get_json()
+                info["temp"] = data
+                getData.post_request(URL+"temp", {'data': data})
+                return jsonify(error=False, msg="Success", code=200, data='')
         else:#get
                 return(info["temp"])
 
@@ -52,7 +64,10 @@ def frontEndTemp():
 @cross_origin()
 def sendWindowState():
         if request.method == "POST":
+                data = request.get_json()
+                info["command"] = data
                 getData.post_request(URL+"command",{"data": info["command"]})
+                return jsonify(error=False, msg="Success", code=200, data='')
                 
                 
 def getInfo():
