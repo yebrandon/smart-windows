@@ -1,7 +1,7 @@
 # Smart Windows
 
 <p align="center">
-    <img src="https://yebrandon.com/assets/img/smartwindows.png" alt="Logo" height="200">
+    <img src="https://yebrandon.com/assets/img/smartwindows.jpg" alt="Logo" height="200">
   <img src = "https://scontent.fymy1-1.fna.fbcdn.net/v/t1.0-9/s960x960/83949030_10157811132038397_3179733936142024704_o.jpg?_nc_cat=107&_nc_sid=340051&_nc_ohc=bAWpz_RyVKwAX9TFwOq&_nc_ht=scontent.fymy1-1.fna&tp=7&oh=a6e0f2aec4b32534d1e1b0d9e52a069a&oe=5F8975F7"alt="Logo" height="200" >
   </p>
 
