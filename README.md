@@ -1,7 +1,7 @@
 # Smart Windows
 
 <p align="center">
-    <img src="https://yebrandon.com/assets/img/smartwindows.jpg" alt="Logo" height="200">
+    <img src="./smartwindows.jpg" alt="Logo" height="200">
   <img src = "https://i.imgur.com/SGVW8wW.png" alt="Logo" height="200" >
   </p>
 
@@ -13,13 +13,12 @@ This project was developed Brandon Ye, Evan Kilburn, Callum Kippin, Marc Kevin Q
 
 ## Tech Stack
 
-- React 
-- Node.js
-- Flask
-- Raspberry Pi
-- Precipitation sensor
+-   React
+-   Node.js
+-   Flask
+-   Raspberry Pi
+-   Precipitation sensor
 
 ## Learn More
 
 https://www.queensu.ca/partnershipsandinnovation/first-queens-hosted-secure-iot-hackathon-all-around-success
-https://yebrandon.com/#projects
